@@ -1,6 +1,6 @@
 {
   "name": "rocket-cache",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Fast and simple cache with memory 、redis and mysql db.",
   "keywords": [
     "cache",
