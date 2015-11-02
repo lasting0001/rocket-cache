@@ -1,0 +1,39 @@
+{
+  "name": "rocket-cache",
+  "version": "1.0.3",
+  "description": "Fast and simple cache with memory 、redis and mysql db.",
+  "keywords": [
+    "cache",
+    "lru",
+    "redis",
+    "node"
+  ],
+  "license": "Apache-2.0",
+  "main": "./index",
+  "author": "jun.li <514332157@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lasting0001/rocket-cache.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lasting0001/rocket-cache/issues"
+  },
+  "engines": {
+    "node": ">=0.8"
+  },
+  "scripts": {
+    "test": "vows"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "mysql": "^2.9.0",
+    "node-stash": "^0.3.3"
+  },
+  "devDependencies": {},
+  "browser": {
+    "os": false
+  },
+  "homepage": "https://github.com/lasting0001/rocket-cache#readme"
+}
