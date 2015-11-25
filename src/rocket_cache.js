@@ -164,11 +164,11 @@ function RocketPieceCache() {
         var redis_conf = opts.redis_conf;
         var client1 = redis.createClient(redis_conf.redis_port, redis_conf.redis_host);
         client1.auth(redis_conf.redis_pass);
-        client1.select(15);
+        client1.select(redis_conf.redis_db || 15);
         opts.redis.clients.cache = client1;
         var client2 = redis.createClient(redis_conf.redis_port, redis_conf.redis_host);
         client2.auth(redis_conf.redis_pass);
-        client2.select(15);
+        client2.select(redis_conf.redis_db || 15);
         opts.redis.clients.broadcast = client2;
         // mysql
         opts.dbQuery = db(opts.mysql_conf).query;
