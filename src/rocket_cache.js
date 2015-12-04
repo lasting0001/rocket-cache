@@ -44,6 +44,7 @@ global._RocketCache = function (opts) {
         this.fresh_time = conf.fresh_time || '-';//数据刷新的时间
         this.dbCallBack = conf.dbCallBack;//数据库读取callBack
         this.dbQuery = conf.dbQuery;//数据库读取方法
+        this.db_pool = conf.db_pool;//数据库连接池
         this.type = 'RocketCache:' + conf.type;//数据类型
         if (!conf.piece && typeof conf.type === 'undefined') {
             console.error('conf.type 为空');
@@ -152,6 +153,10 @@ global._RocketCache = function (opts) {
             callBack && callBack();
         });
     };
+    RocketCache.prototype.dbRestart = function (config) {
+        this.db_pool.restart(config);
+        this.dbQuery = this.db_pool.query;
+    };
     return new RocketCache(opts);
 };
 
@@ -171,7 +176,8 @@ function RocketPieceCache() {
         client2.select(redis_conf.redis_db || 15);
         opts.redis.clients.broadcast = client2;
         // mysql
-        opts.dbQuery = db(opts.mysql_conf).query;
+        opts.db_pool = db(opts.mysql_conf);
+        opts.dbQuery = opts.db_pool.query;
         opts.piece = true;
         opts.valid_time = 1000 * 60 * 30;// 默认有效时间30分钟
         opts.dbCallBack = opts.dbCallBack || function (results, params) {
