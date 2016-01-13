@@ -122,13 +122,17 @@ global._RocketCache = function (opts) {
         };
         scope.key_set && this.key_set.push(data_key);
         // 预返回
-        scope.stash.get(data_key, fetch, cb);
+        if (from_db !== true) {
+            scope.stash.get(data_key, fetch, cb);
+        } else {
+            fetch(cb);
+        }
         // 数据是否已过期
         if ((from_db === true) || (opts.valid_time && (!scope.birth_times[data_key] || (scope.birth_times[data_key] + opts.valid_time < Date.now())))) {
             // 过期删除
             scope.del(data_key, function () {
                 // 预加载(用户每次都加载内存数据，提升响应度)
-                scope.stash.get(data_key, fetch, function () {
+                (from_db !== true) && scope.stash.get(data_key, fetch, function () {
                 });
             });
         }
